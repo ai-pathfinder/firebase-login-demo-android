@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.firebase.samples.logindemo">
+    package="com.brooklynmarathon.pathfinder.login">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- USE_CREDENTIALS is necessary for Google+ login -->
@@ -9,14 +9,14 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
-        android:name=".LoginDemoApplication"
+        android:name="com.brooklynmarathon.pathfinder.login.LoginApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.brooklynmarathon.pathfinder.login.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TwitterOAuthActivity" />
+        <activity android:name="com.brooklynmarathon.pathfinder.login.TwitterOAuthActivity" />
 
         <activity android:name="com.facebook.FacebookActivity" />
 

@@ -1,4 +1,4 @@
-package com.firebase.samples.logindemo;
+package com.brooklynmarathon.pathfinder.login;
 
 import android.app.Application;
 
@@ -11,7 +11,7 @@ import com.firebase.client.Firebase;
  * @author mimming
  * @since 12/17/14
  */
-public class LoginDemoApplication extends Application {
+public class LoginApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

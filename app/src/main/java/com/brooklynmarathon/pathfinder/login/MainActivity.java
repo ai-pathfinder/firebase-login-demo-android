@@ -1,4 +1,4 @@
-package com.firebase.samples.logindemo;
+package com.brooklynmarathon.pathfinder.login;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -45,7 +45,7 @@ import java.util.Map;
  * Facebook provides its own API via the {@link com.facebook.login.widget.LoginButton}.
  * Google provides its own API via the {@link com.google.android.gms.common.api.GoogleApiClient}.
  * Twitter requires us to use a Web View to authenticate, see
- * {@link com.firebase.samples.logindemo.TwitterOAuthActivity}
+ * {@link TwitterOAuthActivity}
  * Email/Password is provided using {@link com.firebase.client.Firebase}
  * Anonymous is provided using {@link com.firebase.client.Firebase}
  */

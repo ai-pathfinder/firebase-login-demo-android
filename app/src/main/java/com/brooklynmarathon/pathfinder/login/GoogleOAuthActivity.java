@@ -1,4 +1,4 @@
-package com.firebase.samples.logindemo;
+package com.brooklynmarathon.pathfinder.login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import com.google.android.gms.plus.Plus;
 import java.io.IOException;
 
 /**
- * This is a sample GoogleOAuthActivity that has been extracted from {@link com.firebase.samples.logindemo.MainActivity} to
+ * This is a sample GoogleOAuthActivity that has been extracted from {@link MainActivity} to
  * allow for better visibility.
  */
 public class GoogleOAuthActivity extends Activity implements
