@@ -147,6 +147,9 @@ public class MainActivity extends ActionBarActivity implements
         */
 
         // Finally, a little indication of connection status
+        Log.i(TAG,"firebaseref: " + mFirebaseRef);
+        Log.i(TAG,"firebaseref: root: " + mFirebaseRef.getRoot());
+
         mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
