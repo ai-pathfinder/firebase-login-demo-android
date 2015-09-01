@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -20,8 +21,10 @@ import com.facebook.CallbackManager;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
@@ -54,6 +57,7 @@ public class MainActivity extends ActionBarActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private ValueEventListener mConnectedListener;
 
     /* *************************************
      *              GENERAL                *
@@ -123,6 +127,50 @@ public class MainActivity extends ActionBarActivity implements
      *            ANONYMOUSLY              *
      ***************************************/
     private Button mAnonymousLoginButton;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        /*
+        // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
+        final ListView listView = getListView();
+        // Tell our list adapter that we only want 50 messages at a time
+        mChatListAdapter = new ChatListAdapter(mFirebaseRef.limit(50), this, R.layout.chat_message, mUsername);
+        listView.setAdapter(mChatListAdapter);
+        mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                listView.setSelection(mChatListAdapter.getCount() - 1);
+            }
+        });
+        */
+
+        // Finally, a little indication of connection status
+        mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean connected = (Boolean) dataSnapshot.getValue();
+                if (connected) {
+                    Toast.makeText(MainActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                // No-op
+            }
+        });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
+        //mChatListAdapter.cleanup();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
