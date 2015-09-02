@@ -1,12 +1,12 @@
 package com.brooklynmarathon.pathfinder.login;
 
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +52,8 @@ import java.util.Map;
  * Email/Password is provided using {@link com.firebase.client.Firebase}
  * Anonymous is provided using {@link com.firebase.client.Firebase}
  */
-public class MainActivity extends ActionBarActivity implements
+public class MainActivity extends ListActivity //ActionBarActivity
+    implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
@@ -127,6 +128,8 @@ public class MainActivity extends ActionBarActivity implements
      *            ANONYMOUSLY              *
      ***************************************/
     private Button mAnonymousLoginButton;
+
+    private FirebaseListAdapter<ChatMessage> mListAdapter;
 
     @Override
     public void onStart() {
@@ -284,6 +287,16 @@ public class MainActivity extends ActionBarActivity implements
         /* Check if the user is authenticated with Firebase already. If this is the case we can set the authenticated
          * user and hide hide any login buttons */
         mFirebaseRef.addAuthStateListener(mAuthStateListener);
+        mListAdapter = new FirebaseListAdapter<ChatMessage>(mFirebaseRef.child("history").limitToLast(50), ChatMessage.class,
+                R.layout.message_layout, this) {
+            @Override
+            protected void populateView(View v, ChatMessage model) {
+               // ((TextView)v.findViewById(R.id.username_text_view)).setText(model.getName());
+                ((TextView)v.findViewById(R.id.message_text_view)).setText(model.getMessage());
+            }
+        };
+        setListAdapter(mListAdapter);
+
     }
 
     @Override
@@ -428,7 +441,7 @@ public class MainActivity extends ActionBarActivity implements
         }
         this.mAuthData = authData;
         /* invalidate options menu to hide/show the logout button */
-        supportInvalidateOptionsMenu();
+        //supportInvalidateOptionsMenu();
     }
 
     /**
