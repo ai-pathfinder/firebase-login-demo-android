@@ -31,6 +31,7 @@ import java.util.List;
  */
 public abstract class FirebaseListAdapter<T> extends BaseAdapter {
 
+    private static final String TAG=FirebaseListAdapter.class.getSimpleName();
     private Query mRef;
     private Class<T> mModelClass;
     private int mLayout;
@@ -116,6 +117,8 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
                 int index = mKeys.indexOf(key);
                 mModels.remove(index);
                 mKeys.remove(index);
+                Log.i(TAG, "QQQ: " + previousChildName);
+
                 if (previousChildName == null) {
                     mModels.add(0, newModel);
                     mKeys.add(0, key);
