@@ -1,5 +1,7 @@
 package com.brooklynmarathon.pathfinder.login;
 
+import java.util.Date;
+
 /**
  * Created by user on 9/1/15.
  */
@@ -56,9 +58,12 @@ public class ChatMessage {
     public String getName() {
         return name;
     }
+    public String getTime() {
+        return new Date(millisgmt).toString() + '\n' ;
+    }
 
     public String getMessage() {
         //return message;
-        return datelocal+ ' ' + url + ' ' + username;
+        return  datelocal+ '\n' + timezone +'\n' + url + '\n' + username;
     }
 }

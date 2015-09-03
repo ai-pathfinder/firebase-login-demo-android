@@ -287,12 +287,14 @@ public class MainActivity extends ListActivity //ActionBarActivity
         /* Check if the user is authenticated with Firebase already. If this is the case we can set the authenticated
          * user and hide hide any login buttons */
         mFirebaseRef.addAuthStateListener(mAuthStateListener);
-        mListAdapter = new FirebaseListAdapter<ChatMessage>(mFirebaseRef.child("history").limitToLast(50), ChatMessage.class,
+        mListAdapter = new FirebaseListAdapter<ChatMessage>(mFirebaseRef.child("history").limitToLast(500), ChatMessage.class,
                 R.layout.message_layout, this) {
             @Override
             protected void populateView(View v, ChatMessage model) {
                // ((TextView)v.findViewById(R.id.username_text_view)).setText(model.getName());
                 ((TextView)v.findViewById(R.id.message_text_view)).setText(model.getMessage());
+
+                ((TextView)v.findViewById(R.id.time_text_view)).setText(model.getTime());
             }
         };
         setListAdapter(mListAdapter);

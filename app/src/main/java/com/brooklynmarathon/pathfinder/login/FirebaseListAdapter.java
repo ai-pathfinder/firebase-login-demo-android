@@ -61,8 +61,11 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
 
+
                 T model = dataSnapshot.getValue(FirebaseListAdapter.this.mModelClass);
                 String key = dataSnapshot.getKey();
+
+                Log.i(TAG, "QQQAdded: " + previousChildName + " model: " + model + " key " + key);
 
                 // Insert into the correct location, based on previousChildName
                 if (previousChildName == null) {
@@ -71,12 +74,23 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
                 } else {
                     int previousIndex = mKeys.indexOf(previousChildName);
                     int nextIndex = previousIndex + 1;
+
+                    Log.i(TAG, "QQQAdded: previndex: " + previousIndex + " size: " + mModels.size() );
                     if (nextIndex == mModels.size()) {
-                        mModels.add(model);
-                        mKeys.add(key);
+                        //mModels.add(model);
+                        //mKeys.add(key);
+
+                        // prepend instead append
+                        mModels.add(0,model);
+                        mKeys.add(0,key);
                     } else {
-                        mModels.add(nextIndex, model);
-                        mKeys.add(nextIndex, key);
+                        //mModels.add(nextIndex, model);
+                        //mKeys.add(nextIndex, key);
+
+                        // prepend instead append
+                        mModels.add(previousIndex, model);
+                        mKeys.add(previousIndex, key);
+
                     }
                 }
 
@@ -117,7 +131,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
                 int index = mKeys.indexOf(key);
                 mModels.remove(index);
                 mKeys.remove(index);
-                Log.i(TAG, "QQQ: " + previousChildName);
+                Log.i(TAG, "QQQMoved: " + previousChildName);
 
                 if (previousChildName == null) {
                     mModels.add(0, newModel);
